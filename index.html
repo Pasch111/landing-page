@@ -553,33 +553,57 @@ img {
                     <h3>60min</h3>
                     <p>Average time to detect an
 
-    <!-- Footer Section -->
+  <!-- Footer Section -->
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-logo">
       <h3>scrubbe</h3>
+      <p class="tagline">Your trusted cleaning solution</p>
     </div>
-    <div class="footer-links">
+    
+    <div class="footer-navigation">
       <div class="footer-column">
-        <h4>Explore</h4>
+        <h4>Product</h4>
         <ul>
           <li><a href="#features">Features</a></li>
           <li><a href="#benefits">Benefits</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Company</h4>
+        <ul>
           <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="#pricing">Pricing</a></li>
         </ul>
       </div>
+      
       <div class="footer-column">
-        <h4>Resources</h4>
+        <h4>Solutions</h4>
         <ul>
           <li><a href="#soar">SOAR</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Account</h4>
+        <ul>
           <li><a href="#login" class="login-link">Login</a></li>
+          <li><a href="#signup" class="signup-link">Sign Up</a></li>
         </ul>
       </div>
     </div>
   </div>
+  
   <div class="footer-bottom">
-    <p>&copy; 2025 scrubbe. All rights reserved.</p>
+    <div class="footer-bottom-container">
+      <p>&copy; 2025 scrubbe. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -587,36 +611,69 @@ img {
 <style>
   .footer {
     background-color: #f8f9fa;
-    padding: 3rem 0 1.5rem;
-    margin-top: 4rem;
+    padding: 5rem 0 2rem;
+    margin-top: 6rem;
     border-top: 1px solid #e9ecef;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
   .footer-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 4rem;
+  }
+  
+  .footer-logo {
+    flex: 0 0 25%;
   }
   
   .footer-logo h3 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     margin-bottom: 1rem;
     color: #333;
   }
   
-  .footer-links {
+  .footer-logo .tagline {
+    color: #777;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .footer-navigation {
+    flex: 0 0 70%;
     display: flex;
-    flex-wrap: wrap;
-    gap: 3rem;
+    justify-content: space-between;
+  }
+  
+  .footer-column {
+    flex: 1;
+    margin-right: 2rem;
+  }
+  
+  .footer-column:last-child {
+    margin-right: 0;
   }
   
   .footer-column h4 {
-    font-size: 1.2rem;
-    margin-bottom: 1.2rem;
-    color: #555;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #444;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.75rem;
+  }
+  
+  .footer-column h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 40px;
+    background-color: #007bff;
   }
   
   .footer-column ul {
@@ -626,51 +683,117 @@ img {
   }
   
   .footer-column ul li {
-    margin-bottom: 0.7rem;
+    margin-bottom: 1.2rem;
   }
   
   .footer-column ul li a {
     text-decoration: none;
     color: #666;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+    font-size: 1.05rem;
   }
   
   .footer-column ul li a:hover {
     color: #007bff;
+    transform: translateX(5px);
   }
   
-  .login-link {
+  .login-link, .signup-link {
     font-weight: 500;
   }
   
+  .signup-link {
+    color: #007bff;
+  }
+  
   .footer-bottom {
-    max-width: 1200px;
-    margin: 2rem auto 0;
-    padding: 1.5rem 1.5rem 0;
     border-top: 1px solid #e9ecef;
-    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+  }
+  
+  .footer-bottom-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-bottom p {
     color: #777;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+  
+  .footer-social {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .footer-social a {
+    color: #777;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-social a:hover {
+    color: #007bff;
   }
   
   /* Mobile Responsiveness */
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     .footer-container {
       flex-direction: column;
+      gap: 3rem;
     }
     
     .footer-logo {
-      margin-bottom: 2rem;
+      flex: 0 0 100%;
       text-align: center;
     }
     
-    .footer-links {
-      justify-content: space-around;
-      width: 100%;
+    .footer-navigation {
+      flex: 0 0 100%;
+      flex-wrap: wrap;
+      gap: 2rem;
     }
     
     .footer-column {
-      margin-bottom: 1.5rem;
+      flex: 0 0 45%;
+      margin-right: 0;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-column h4::after {
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 40px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .footer {
+      padding: 3rem 0 1.5rem;
+    }
+    
+    .footer-navigation {
+      flex-direction: column;
+    }
+    
+    .footer-column {
+      flex: 0 0 100%;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    
+    .footer-bottom-container {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
     }
   }
 </style>
