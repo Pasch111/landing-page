@@ -3,53 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>scrubbe | Security Orchestration, Simplified</title>
+    <title>scrubbe | Next-Gen SIEM & SOAR Platform</title>
     <style>
         :root {
-            --background: #080808;
-            --text: #e2e2e2;
-            --accent: #04a9f4;
-            --secondary: #2d2d2d;
-            --muted: #8a8a8a;
-            --border: #2a2a2a;
-            --card: #121212;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --accent: #10b981;
+            --dark: #111827;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         
         body {
-            background-color: var(--background);
-            color: var(--text);
+            background-color: var(--light);
+            color: var(--dark);
             line-height: 1.6;
-            font-size: 16px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
         }
         
         header {
-            padding: 2rem 0;
+            background-color: var(--dark);
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .logo {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text);
-            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
             display: flex;
             align-items: center;
         }
@@ -64,155 +62,112 @@
         }
         
         .nav-links a {
-            color: var(--muted);
+            color: var(--light);
             text-decoration: none;
-            font-size: 0.9rem;
             font-weight: 500;
             transition: color 0.3s;
         }
         
         .nav-links a:hover {
-            color: var(--text);
+            color: var(--accent);
         }
         
         .cta-button {
-            background-color: var(--accent);
-            color: var(--background);
+            background-color: var(--primary);
+            color: white;
             border: none;
-            padding: 0.5rem 1.25rem;
-            border-radius: 4px;
-            font-weight: 500;
-            font-size: 0.9rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.3s;
+            transition: background-color 0.3s;
         }
         
         .cta-button:hover {
-            opacity: 0.9;
+            background-color: var(--primary-dark);
         }
         
         .hero {
-            padding: 6rem 0 8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--dark), #2d3748);
+            color: var(--light);
         }
         
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+        .hero-content {
+            max-width: 800px;
         }
         
         h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1.1;
+            font-size: 3rem;
             margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--text), var(--muted));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            line-height: 1.2;
         }
         
-        .hero-content p {
-            color: var(--muted);
+        h1 span {
+            color: var(--accent);
+        }
+        
+        .hero p {
             font-size: 1.25rem;
             margin-bottom: 2.5rem;
-            max-width: 500px;
+            color: #e5e7eb;
         }
         
         .hero-buttons {
             display: flex;
             gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         
         .secondary-button {
             background-color: transparent;
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 0.5rem 1.25rem;
-            border-radius: 4px;
-            font-weight: 500;
-            font-size: 0.9rem;
+            color: var(--light);
+            border: 1px solid var(--light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
         }
         
         .secondary-button:hover {
-            background-color: var(--secondary);
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
-        .terminal {
-            background-color: var(--card);
-            border-radius: 8px;
-            padding: 1rem;
-            border: 1px solid var(--border);
-            overflow: hidden;
-        }
-        
-        .terminal-header {
-            display: flex;
-            margin-bottom: 1rem;
-        }
-        
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-        
-        .terminal-button:nth-child(1) {
-            background-color: #ff5f56;
-        }
-        
-        .terminal-button:nth-child(2) {
-            background-color: #ffbd2e;
-        }
-        
-        .terminal-button:nth-child(3) {
-            background-color: #27c93f;
-        }
-        
-        .terminal-content {
-            font-family: 'SF Mono', Consolas, Monaco, monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        
-        .command {
-            color: var(--text);
-            margin-bottom: 0.5rem;
-            display: flex;
-        }
-        
-        .prompt {
-            color: var(--accent);
-            margin-right: 0.5rem;
-        }
-        
-        .output {
-            color: var(--muted);
-            margin-bottom: 1rem;
+        .dashboard-preview {
+            max-width: 100%;
+            margin-top: 3rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid #374151;
         }
         
         .features {
-            padding: 6rem 0;
+            padding: 5rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
         
         .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--text);
+            font-size: 2.25rem;
+            color: var(--dark);
             margin-bottom: 1rem;
         }
         
         .section-header p {
             font-size: 1.125rem;
-            color: var(--muted);
+            color: var(--gray);
             max-width: 600px;
             margin: 0 auto;
         }
@@ -224,236 +179,93 @@
         }
         
         .feature-card {
-            background-color: var(--card);
+            background-color: white;
             padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            transition: transform 0.3s, border-color 0.3s;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
-            border-color: var(--accent);
         }
         
         .feature-icon {
-            color: var(--accent);
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
         }
         
-        .feature-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-        
         .feature-card p {
-            color: var(--muted);
-            font-size: 0.9rem;
+            color: var(--gray);
         }
         
-        .authentication {
-            padding: 6rem 0;
-            background-color: var(--card);
-            border-top: 1px solid var(--border);
+        .metrics {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 5rem 1.5rem;
+            text-align: center;
         }
         
-        .auth-grid {
+        .metrics-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .metrics-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
         
-        .auth-visual {
-            background-color: var(--secondary);
-            border-radius: 8px;
-            padding: 2rem;
-            border: 1px solid var(--border);
-        }
-        
-        .auth-features {
-            margin-top: 2rem;
-        }
-        
-        .auth-feature {
-            display: flex;
-            margin-bottom: 1.5rem;
-        }
-        
-        .auth-feature-icon {
+        .metric-item h3 {
+            font-size: 2.5rem;
             color: var(--accent);
-            margin-right: 1rem;
-            font-size: 1.25rem;
-            flex-shrink: 0;
-        }
-        
-        .auth-feature-content h4 {
-            color: var(--text);
-            font-size: 1.1rem;
             margin-bottom: 0.5rem;
         }
         
-        .auth-feature-content p {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-        
-        .soar {
-            padding: 6rem 0;
-        }
-        
-        .soar-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        
-        .soar-visual {
-            order: 2;
-        }
-        
-        .soar-content {
-            order: 1;
-        }
-        
-        .workflow {
-            padding: 6rem 0;
-            background-color: var(--card);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .workflow-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-        
-        .workflow-step {
-            text-align: center;
-            position: relative;
-        }
-        
-        .step-number {
-            background-color: var(--accent);
-            color: var(--background);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            margin: 0 auto 1.5rem;
-        }
-        
-        .workflow-step h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-        
-        .workflow-step p {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-        
-        .industries {
-            padding: 6rem 0;
-        }
-        
-        .industries-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-        
-        .industry-card {
-            background-color: var(--card);
-            padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            text-align: center;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-        
-        .industry-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-        
-        .industry-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-        
-        .industry-card h3 {
-            font-size: 1.25rem;
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-        
-        .industry-card p {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-        
-        .customers {
-            padding: 6rem 0;
-            background-color: var(--card);
-            border-top: 1px solid var(--border);
-        }
-        
-        .logos {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-        
-        .logo-item {
-            filter: grayscale(100%);
-            opacity: 0.6;
-            transition: all 0.3s;
-            height: 50px;
-            width: 120px;
-            background-color: var(--secondary);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .logo-item:hover {
-            filter: grayscale(0%);
-            opacity: 1;
+        .metric-item p {
+            font-size: 1.125rem;
+            color: #e5e7eb;
         }
         
         .testimonials {
-            padding: 6rem 0;
+            padding: 5rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
         
         .testimonial-card {
-            background-color: var(--card);
+            background-color: white;
             padding: 2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin-top: 4rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
         }
         
         .testimonial-content {
-            font-size: 1.25rem;
-            color: var(--text);
-            margin-bottom: 2rem;
             font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--gray);
         }
         
         .testimonial-author {
@@ -462,72 +274,82 @@
         }
         
         .author-avatar {
-            width: 50px;
-            height: 50px;
+            width: 3rem;
+            height: 3rem;
             border-radius: 50%;
-            overflow: hidden;
             margin-right: 1rem;
-            background-color: var(--secondary);
+            background-color: #e5e7eb;
         }
         
         .author-info h4 {
-            font-size: 1rem;
-            color: var(--text);
+            font-size: 1.125rem;
             margin-bottom: 0.25rem;
         }
         
         .author-info p {
-            color: var(--muted);
+            color: var(--gray);
             font-size: 0.875rem;
         }
         
-        .cta {
-            padding: 6rem 0;
+        .cta-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 5rem 1.5rem;
             text-align: center;
         }
         
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--text);
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
         }
         
-        .cta p {
-            color: var(--muted);
+        .cta-section h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-section p {
             font-size: 1.125rem;
             margin-bottom: 2.5rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            color: rgba(255, 255, 255, 0.9);
         }
         
         footer {
-            padding: 4rem 0;
-            border-top: 1px solid var(--border);
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 3rem 1.5rem;
         }
         
-        .footer-grid {
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
         }
         
-        .footer-logo {
+        .footer-column h3 {
             font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-        
-        .footer-logo span {
-            color: var(--accent);
-        }
-        
-        .footer-about {
-            color: var(--muted);
-            font-size: 0.9rem;
             margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: #e5e7eb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
         }
         
         .social-links {
@@ -537,11 +359,126 @@
         }
         
         .social-icon {
-            width: 36px;
-            height: 36px;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            background-color: var(--secondary);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent
+            transition: background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            h1 {
+                font-size: 2.25rem;
+            }
+            
+            .hero p {
+                font-size: 1.125rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">scrubbe<span>.</span></div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#benefits">Benefits</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#pricing">Pricing</a>
+            </div>
+            <button class="cta-button">Request Demo</button>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Automate Your Security Response with <span>scrubbe</span></h1>
+            <p>An intelligent SIEM & SOAR platform that detects, analyzes, and responds to threats 10x faster than traditional solutions.</p>
+            <div class="hero-buttons">
+                <button class="cta-button">Get Started</button>
+                <button class="secondary-button">Watch Demo</button>
+            </div>
+            <img src="/api/placeholder/800/450" alt="scrubbe dashboard preview" class="dashboard-preview" />
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Powerful Features</h2>
+            <p>Everything you need to enhance your security operations in one unified platform.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Advanced Threat Detection</h3>
+                <p>Use AI-powered analytics to identify anomalies and threats across your entire infrastructure in real-time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>Automated Response</h3>
+                <p>Create custom playbooks to automate your incident response workflows and eliminate repetitive tasks.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Intuitive Dashboards</h3>
+                <p>Visualize your security posture with customizable dashboards designed for security teams and executives.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>Seamless Integration</h3>
+                <p>Connect with over 300+ security tools and data sources for a unified security operations experience.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Mobile Accessibility</h3>
+                <p>Monitor and respond to incidents from anywhere with our responsive mobile application.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>Compliance Reporting</h3>
+                <p>Generate compliance reports instantly with pre-built templates for GDPR, HIPAA, PCI DSS, and more.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="metrics">
+        <div class="metrics-container">
+            <div class="section-header">
+                <h2>Proven Results</h2>
+                <p>Join hundreds of organizations that have transformed their security operations with scrubbe.</p>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <h3>85%</h3>
+                    <p>Reduction in alert triage time</p>
+                </div>
+                <div class="metric-item">
+                    <h3>70%</h3>
+                    <p>Decrease in false positives</p>
+                </div>
+                <div class="metric-item">
+                    <h3>60min</h3>
+                    <p>Average time to detect an
