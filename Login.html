@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrubbe Authentication</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", sans-serif;
+    }
+
+    body {
+      background-color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .container {
+      max-width: 28rem;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .branding {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .app-name {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .app-description {
+      color: #64748b;
+      font-size: 1rem;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+      padding: 1.5rem 1.5rem 0.75rem 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-description {
+      color: #64748b;
+      font-size: 0.875rem;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-footer {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+    }
+
+    .tabs {
+      display: flex;
+      margin-bottom: 1.5rem;
+      background-color: #f1f5f9;
+      border-radius: 0.5rem;
+      padding: 0.25rem;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 0.5rem 0;
+      border-radius: 0.3rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab.active {
+      background-color: white;
+      color: #0f172a;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .input {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 0.375rem;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+      color: #0f172a;
+      transition: border-color 0.15s ease;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .link-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .link {
+      color: #3b82f6;
+      font-size: 0.75rem;
+      text-decoration: none;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: none;
+    }
+
+    .button-primary {
+      background-color: #3b82f6;
+      color: white;
+    }
+
+    .button-primary:hover {
+      background-color: #2563eb;
+    }
+
+    .button-outline {
+      background-color: white;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+    }
+
+    .button-outline:hover {
+      background-color: #f8fafc;
+    }
+
+    .w-full {
+      width: 100%;
+    }
+
+    .my-4 {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .mb-4 {
+      margin-bottom: 1rem;
+    }
+
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+
+    .mt-2 {
+      margin-top: 0.5rem;
+    }
+
+    .divider {
+      position: relative;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+
+    .divider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: #e2e8f0;
+      z-index: 1;
+    }
+
+    .divider span {
+      position: relative;
+      background-color: white;
+      padding: 0 0.75rem;
+      font-size: 0.75rem;
+      color: #64748b;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.5rem;
+    }
+
+    .chevron-right {
+      width: 1rem;
+      height: 1rem;
+      margin-left: 0.5rem;
+    }
+
+    .separator {
+      height: 1px;
+      width: 100%;
+      background-color: #e2e8f0;
+      margin: 1rem 0;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .checkbox {
+      margin-right: 0.5rem;
+    }
+
+    .small-text {
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .alert {
+      padding: 0.75rem 1rem;
+      border-radius: 0.375rem;
+      background-color: #ecfdf5;
+      border-left: 4px solid #10b981;
+      color: #047857;
+      margin-top: 1rem;
+    }
+
+    .user-type-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    #otp-input {
+      text-align: center;
+      letter-spacing: 0.25em;
+      font-size: 1.125rem;
+    }
+
+    .footer-text {
+      color: #64748b; 
+      font-size: 0.75rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .footer-text a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    .footer-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo and Title -->
+    <div class="branding">
+      <h1 class="app-name">Scrubbe</h1>
+      <p class="app-description">Security Information and Event Management</p>
+    </div>
+
+    <!-- Main Auth Card -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Welcome to Scrubbe</h2>
+        <p class="card-description">Choose your preferred authentication method to get started</p>
+      </div>
+
+      <div class="card-content">
+        <!-- Tabs navigation -->
+        <div class="tabs">
+          <div class="tab active" onclick="switchTab('login')">Login</div>
+          <div class="tab" onclick="switchTab('signup')">Sign Up</div>
+        </div>
+
+        <!-- Login Tab Content -->
+        <div id="login" class="tab-content active">
+          <form id="login-form">
+            <input type="email" class="input" placeholder="Email" required>
+            <input type="password" class="input" placeholder="Password" required>
+            
+            <div class="link-container">
+              <a href="#" class="link">Forgot password?</a>
+              <a href="#" class="link" onclick="toggleOTPForm()">Login with OTP</a>
+            </div>
+
+            <button type="submit" class="button button-primary w-full mb-4">
+              Sign In
+              <svg class="chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+
+            <div class="divider">
+              <span>Or continue with</span>
+            </div>
+
+            <div class="grid-2">
+              <button type="button" class="button button-outline">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                Github
+              </button>
+              <button type="button" class="button button-outline">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                Google
+              </button>
+            </div>
+
+            <div class="grid-2">
+              <button type="button" class="button button-outline">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"></path>
+                </svg>
+                Apple
+              </button>
+              <button type="button" class="button button-outline">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 11c0 3.076-1.13 5.258-1.833 6.083"></path>
+                  <path d="M12 11c0-3.076 1.13-5.258 1.833-6.083"></path>
+                  <path d="M12 11c3.076 0 5.258 1.13 6.083 1.833"></path>
+                  <path d="M12 11c-3.076 0-5.258-1.13-6.083-1.833"></path>
+                  <path d="M12 11c0 3.076 1.13 5.258 1.833 6.083"></path>
+                  <path d="M12 11c0-3.076-1.13-5.258-1.833-6.083"></path>
+                  <path d="M12 11c-3.076 0-5.258 1.13-6.083 1.833"></path>
+                  <path d="M12 11c3.076 0 5.258-1.13 6.083-1.833"></path>
+                </svg>
+                SSO
+              </button>
+            </div>
+          </form>
+
+          <!-- OTP Form (hidden by default) -->
+          <form id="otp-form" style="display: none;">
+            <p class="small-text mb-4">We've sent a one-time password to your email</p>
+            <input type="text" id="otp-input" class="input" placeholder="Enter OTP code" maxlength="6" required>
+            
+            <div class="link-container">
+              <a href="#" class="link">Resend code</a>
+              <a href="#" class="link" onclick="toggleOTPForm()">Use password instead</a>
+            </div>
+
+            <button type="submit"
