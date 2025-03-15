@@ -552,30 +552,125 @@ img {
                 <div class="metric-item">
                     <h3>60min</h3>
                     <p>Average time to detect an
-<!-- Footer Section -->
-<footer style="background-color: #333; color: white; padding: 20px 0; margin-top: 30px;">
-  <div style="display: flex; justify-content: center; flex-wrap: wrap;">
-    <div style="margin: 0 20px; text-align: center;">
-      <h4><a href="#features" style="color: white; text-decoration: none;">Features</a></h4>
+
+    <!-- Footer Section -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <h3>scrubbe</h3>
     </div>
-    <div style="margin: 0 20px; text-align: center;">
-      <h4><a href="#benefits" style="color: white; text-decoration: none;">Benefits</a></h4>
-    </div>
-    <div style="margin: 0 20px; text-align: center;">
-      <h4><a href="#testimonials" style="color: white; text-decoration: none;">Testimonials</a></h4>
-    </div>
-    <div style="margin: 0 20px; text-align: center;">
-      <h4><a href="#pricing" style="color: white; text-decoration: none;">Pricing</a></h4>
-    </div>
-    <div style="margin: 0 20px; text-align: center;">
-      <h4><a href="#soar" style="color: white; text-decoration: none;">SOAR</a></h4>
-    </div>
-    <div style="margin: 0 20px; text-align: center;">
-      <h4><a href="#login" style="color: white; text-decoration: none;">Login</a></h4>
+    <div class="footer-links">
+      <div class="footer-column">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#benefits">Benefits</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#soar">SOAR</a></li>
+          <li><a href="#login" class="login-link">Login</a></li>
+        </ul>
+      </div>
     </div>
   </div>
-  <div style="text-align: center; margin-top: 20px;">
-    <p>&copy; 2025 Your Company Name. All Rights Reserved.</p>
-    <p>Contact us: <a href="mailto:support@example.com" style="color: white;">support@example.com</a></p>
+  <div class="footer-bottom">
+    <p>&copy; 2025 scrubbe. All rights reserved.</p>
   </div>
 </footer>
+
+<!-- CSS for Footer -->
+<style>
+  .footer {
+    background-color: #f8f9fa;
+    padding: 3rem 0 1.5rem;
+    margin-top: 4rem;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .footer-logo h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+  }
+  
+  .footer-column h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    color: #555;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 0.7rem;
+  }
+  
+  .footer-column ul li a {
+    text-decoration: none;
+    color: #666;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-column ul li a:hover {
+    color: #007bff;
+  }
+  
+  .login-link {
+    font-weight: 500;
+  }
+  
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    padding: 1.5rem 1.5rem 0;
+    border-top: 1px solid #e9ecef;
+    text-align: center;
+    color: #777;
+    font-size: 0.9rem;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+    }
+    
+    .footer-logo {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .footer-links {
+      justify-content: space-around;
+      width: 100%;
+    }
+    
+    .footer-column {
+      margin-bottom: 1.5rem;
+    }
+  }
+</style>
