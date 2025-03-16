@@ -393,6 +393,56 @@
             color: #9ca3af;
             font-size: 0.875rem;
         }
+
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrubbe Landing Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #editor {
+            width: 80%;
+            height: 400px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Try Scrubbe's AI Code Builder</h1>
+    
+    <!-- 🚀 The Code Editor Container -->
+    <div id="editor">npm install scrubbe.io\nyarn install scrubbe.io</div>
+
+    <!-- 🎯 Load Monaco Editor using CDN -->
+    <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+    <script>
+        require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' }});
+
+        require(['vs/editor/editor.main'], function () {
+            monaco.editor.create(document.getElementById('editor'), {
+                value: "npm install scrubbe.io\nyarn install scrubbe.io",
+                language: 'bash', // Set to 'bash' for terminal-like syntax highlighting
+                theme: 'vs-dark',
+                automaticLayout: true,
+            });
+        });
+    </script>
+
+</body>
+</html>
         
         @media (max-width: 768px) {
             .nav-links {
