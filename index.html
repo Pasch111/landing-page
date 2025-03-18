@@ -3,1148 +3,1093 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scrubbe | Advanced SIEM & SOAR Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.4/fingerprint2.min.js"></script>
+    <title>Scrubbe | Advanced SIEM & SOAR Security Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #2a4365;
-            --secondary-color: #38b2ac;
-            --dark-bg: #1a202c;
-            --light-bg: #f7fafc;
-            --text-light: #e2e8f0;
-            --text-dark: #2d3748;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-
+        
         body {
-            background-color: var(--light-bg);
-            color: var(--text-dark);
+            background-color: var(--light);
+            color: var(--dark);
             line-height: 1.6;
+            overflow-x: hidden;
         }
-
+        
         .container {
-            width: 100%;
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 1rem;
         }
-
+        
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
         header {
-            background-color: var(--primary-color);
-            color: var(--text-light);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
-
+        
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 0;
         }
-
+        
         .logo {
-            font-size: 24px;
-            font-weight: bold;
             display: flex;
             align-items: center;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary);
         }
-
-        .logo i {
-            margin-right: 10px;
-            color: var(--secondary-color);
+        
+        .logo span {
+            color: var(--secondary);
         }
-
+        
         .nav-links {
             display: flex;
-            list-style: none;
+            gap: 2rem;
+            transition: all 0.3s ease;
         }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
+        
         .nav-links a {
-            color: var(--text-light);
             text-decoration: none;
+            color: var(--dark);
             font-weight: 500;
             transition: color 0.3s;
         }
-
+        
         .nav-links a:hover {
-            color: var(--secondary-color);
+            color: var(--primary);
         }
-
-        .hero {
-            padding: 100px 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--dark-bg));
-            color: var(--text-light);
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            margin-bottom: 40px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background-color: var(--secondary-color);
-            color: var(--text-light);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-light);
-            border: 2px solid var(--text-light);
-        }
-
-        .btn-primary:hover {
-            background-color: #319795;
-            transform: translateY(-3px);
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
-        }
-
-        .features {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            font-size: 36px;
-            color: var(--primary-color);
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .feature-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            font-size: 40px;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .how-it-works {
-            padding: 80px 0;
-            background-color: #edf2f7;
-        }
-
-        .steps {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px;
-            flex-wrap: wrap;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 250px;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .step-number {
-            background-color: var(--secondary-color);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 20px;
-            font-weight: bold;
-        }
-
-        .step h3 {
-            margin-bottom: 15px;
-        }
-
-        .security-metrics {
-            padding: 80px 0;
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-        }
-
-        .metrics-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-
-        .metric {
-            text-align: center;
-            padding: 0 20px;
-            margin-bottom: 30px;
-        }
-
-        .metric-value {
-            font-size: 48px;
-            font-weight: bold;
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-        }
-
-        .testimonials {
-            padding: 80px 0;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .testimonial-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-            background-color: #cbd5e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .author-info h4 {
-            margin-bottom: 5px;
-        }
-
-        .cta-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--dark-bg));
-            color: var(--text-light);
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .cta-section p {
-            max-width: 600px;
-            margin: 0 auto 40px;
-            font-size: 18px;
-        }
-
-        footer {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            padding: 50px 0 20px;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        .footer-column {
-            flex: 1;
-            min-width: 200px;
-            margin-bottom: 30px;
-        }
-
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary-color);
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-icons a {
-            color: var(--text-light);
-            font-size: 20px;
-            transition: color 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: var(--secondary-color);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Modal for fingerprint info */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .device-info {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-
-        .fingerprint-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .fingerprint-table th, .fingerprint-table td {
-            border: 1px solid #e2e8f0;
-            padding: 10px;
-            text-align: left;
-        }
-
-        .fingerprint-table th {
-            background-color: #edf2f7;
-        }
-
-        .fingerprint-category {
-            margin-top: 30px;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #e2e8f0;
-            color: var(--primary-color);
-        }
-
-        .risk-low {
-            background-color: #c6f6d5;
-            color: #22543d;
-            padding: 3px 8px;
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: white !important;
+            padding: 0.7rem 1.5rem;
             border-radius: 4px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .risk-medium {
-            background-color: #fefcbf;
-            color: #744210;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .risk-high {
-            background-color: #fed7d7;
-            color: #822727;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .fingerprint-details {
-            margin-top: 15px;
-        }
-
-        .detail-group {
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            border-left: 4px solid var(--secondary-color);
-        }
-
-        .detail-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-
-        .detail-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .detail-item {
-            padding: 10px;
-            background-color: white;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .detail-label {
-            font-size: 12px;
-            color: #718096;
-            margin-bottom: 5px;
-        }
-
-        .detail-value {
             font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            display: inline-block;
         }
-
-        .fingerprint-actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
+        
+        .cta-button:hover {
+            background-color: var(--primary-dark);
         }
-
-        .action-btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-weight: 500;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .export-btn {
-            background-color: #4a5568;
+        
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 5rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white;
-            border: none;
-        }
-
-        .export-btn:hover {
-            background-color: #2d3748;
-        }
-
-        .live-indicator {
-            display: inline-flex;
-            align-items: center;
-            margin-left: 15px;
-            font-size: 14px;
-        }
-
-        .indicator-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: #48bb78;
-            margin-right: 6px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7);
-            }
-            
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 6px rgba(72, 187, 120, 0);
-            }
-            
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(72, 187, 120, 0);
-            }
-        }
-
-        .threat-gauge {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 20px auto;
-        }
-
-        .gauge-background {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: conic-gradient(
-                #48bb78 0% 20%,
-                #ecc94b 20% 60%,
-                #f56565 60% 100%
-            );
-            clip-path: polygon(50% 50%, 100% 50%, 100% 0, 0 0, 0 50%, 50% 50%);
-            transform: rotate(-90deg);
-        }
-
-        .gauge-center {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: calc(100% - 20px);
-            height: calc(100% - 20px);
-            background-color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-
-        .gauge-value {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .gauge-label {
-            font-size: 12px;
-            color: #718096;
-        }
-
-        .gauge-needle {
-            position: absolute;
-            width: 4px;
-            height: 65px;
-            background-color: #4a5568;
-            bottom: 50%;
-            left: calc(50% - 2px);
-            transform-origin: bottom center;
-            transform: rotate(0deg);
-            transition: transform 1.5s ease-in-out;
-            border-radius: 2px 2px 0 0;
-        }
-
-        .gauge-needle:after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: -4px;
-            width: 12px;
-            height: 12px;
-            background-color: #4a5568;
-            border-radius: 50%;
-        }
-
-        .integrations {
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      padding: 40px;
-      margin-bottom: 60px;
-    }
-    
-    .integrations-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 30px;
-    }
-    
-    .integration-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      border-radius: 8px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .integration-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    .integration-icon {
-      width: 80px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #f3f4f6;
-      border-radius: 50%;
-      margin-bottom: 16px;
-    }
-    
-    .integration-icon img {
-      max-width: 50px;
-      max-height: 50px;
-    }
-    
-    .integration-name {
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-        .integration-desc {
-      color: #4a5568;
-      font-size: 14px;
-    }
-    
-    .installation {
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      padding: 40px;
-    }
-    
-    .installation-title {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    
-    .installation-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-
-        .code-block {
-      background-color: #1e293b;
-      color: #e2e8f0;
-      padding: 20px;
-      border-radius: 6px;
-      font-family: monospace;
-      white-space: pre;
-      overflow-x: auto;
-      margin: 16px 0;
-    }
-
-        .vpn-alert {
-            background-color: #fed7d7;
-            border-left: 4px solid #c53030;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .vpn-alert-title {
-            color: #c53030;
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .vpn-alert-title i {
-            margin-right: 8px;
-        }
-
-        .bot-alert {
-            background-color: #fed7d7;
-            border-left: 4px solid #c53030;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .bot-alert-title {
-            color: #c53030;
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .bot-alert-title i {
-            margin-right: 8px;
-        }
-
-        .geo-map {
-            width: 100%;
-            height: 200px;
-            background-color: #e2e8f0;
-            margin-top: 15px;
-            border-radius: 5px;
             position: relative;
             overflow: hidden;
         }
         
-        .map-placeholder {
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #edf2f7;
-            color: #4a5568;
-            font-size: 14px;
+            background: url('/api/placeholder/1000/800') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
         }
         
-        .location-pin {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -100%);
-            color: #e53e3e;
-            font-size: 24px;
-        }
-
-        /* Tabs for fingerprint modal */
-        .tab-container {
-            margin-top: 20px;
-        }
-
-        .tabs {
+        .hero-content {
             display: flex;
-            border-bottom: 1px solid #e2e8f0;
+            align-items: center;
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
         }
-
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-text h1 span {
+            color: var(--secondary);
+            background: linear-gradient(to right, var(--secondary), #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .hero-image img:hover {
+            transform: perspective(1000px) rotateY(0);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .secondary-button {
+            background-color: transparent;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid white;
+            transition: all 0.3s;
+        }
+        
+        .secondary-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background-color: var(--light);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        /* Device Info Section */
+        .device-info {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .device-info::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/500/500') no-repeat center center;
+            background-size: cover;
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .installation {
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .installation-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+        
+        .installation-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-content h3 {
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+        
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            white-space: pre;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .code-block::before {
+            content: 'Code';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            border-radius: 0 8px 0 8px;
+        }
+        
+        .fingerprint-box {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .fingerprint-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .fingerprint-item {
+            background-color: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .fingerprint-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .fingerprint-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .fingerprint-value {
+            font-size: 1rem;
             font-weight: 500;
+            word-break: break-all;
         }
-
-        .tab.active {
-            border-bottom: 2px solid var(--secondary-color);
-            color: var(--secondary-color);
+        
+        /* Integrations Section */
+        .integrations {
+            padding: 5rem 0;
+            background-color: var(--light);
         }
-
-        .tab-content {
-            display: none;
-            padding: 20px 0;
+        
+        .integrations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
-
-        .tab-content.active {
-            display: block;
+        
+        .integration-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+        
+        .integration-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .integration-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-radius: 50%;
+            font-size: 2rem;
+        }
+        
+        .integration-card h4 {
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        
+        .integration-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* Features Section */
+        .features-alt {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        
+        
+        /* Media Queries */
+        @media (max-width: 1024px) {
+            .hero-text h1 {
+                font-size: 2.8rem;
             }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .cta-buttons {
+            
+            .hero-content {
                 flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 80%;
-                margin-bottom: 10px;
                 text-align: center;
             }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                margin-top: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
         }
-
-        /* Hidden fingerprint data container */
-        #fingerprintData {
-            display: none;
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                gap: 1.5rem;
+                transition: all 0.4s ease-in-out;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .device-info .fingerprint-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .step {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                width: 95%;
+                padding: 0 0.5rem;
+            }
+            
+            .hero {
+                padding: 8rem 0 4rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-text p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .feature-card, .integration-card, .fingerprint-item {
+                padding: 1.5rem;
+            }
+            
+            .code-block {
+                padding: 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .installation {
+                padding: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Hidden container for fingerprint data -->
-    <div id="fingerprintData"></div>
-
     <header>
         <div class="container">
             <nav>
                 <div class="logo">
-                    <i class="fas fa-shield-alt"></i>
-                    Scrubbe
+                    Scrubbe<span>.</span>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#" id="open-demo" class="btn btn-secondary">Try Demo</a></li>
-                </ul>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="nav-links" id="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#integrations">Integrations</a>
+                    <a href="#installation">Installation</a>
+                    <a href="#demo">Demo</a>
+                </div>
+                <a href="#" class="cta-button">Get Started</a>
             </nav>
         </div>
     </header>
-
+    
     <section class="hero">
         <div class="container">
-            <h1>Intelligent Security & Response</h1>
-            <p>Advanced SIEM & SOAR platform that detects, analyzes, and responds to security threats in real-time with machine learning and automation</p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">Request a Demo</a>
-                <a href="#" id="learn-more" class="btn btn-secondary">Learn More</a>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Advanced <span>SIEM & SOAR</span> Security Intelligence</h1>
+                    <p>Scrubbe combines powerful security monitoring with automated response capabilities to keep your organization safe from emerging threats.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="cta-button">Start Free Trial</a>
+                        <a href="#demo" class="secondary-button">See Demo</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="/api/placeholder/500/300" alt="Scrubbe Dashboard" />
+                </div>
             </div>
         </div>
     </section>
-
+    
     <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title">Powerful Features</h2>
-            <div class="feature-grid">
+            <div class="section-title">
+                <h2>Powerful Security Features</h2>
+                <p>Scrubbe offers comprehensive security monitoring and automated response capabilities to identify and neutralize threats before they impact your business.</p>
+            </div>
+            
+            <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-radar"></i>
                     </div>
-                    <h3>Advanced Threat Detection</h3>
-                    <p>Identify sophisticated threats with AI-powered analysis and behavioral monitoring across your entire network</p>
+                    <h3>Real-Time Threat Detection</h3>
+                    <p>Monitor and detect suspicious activities across your network with advanced analytics and machine learning algorithms.</p>
                 </div>
-
+                
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
+                        <i class="fas fa-robot"></i>
                     </div>
                     <h3>Automated Response</h3>
-                    <p>Respond instantly to security incidents with customizable playbooks that eliminate manual intervention</p>
+                    <p>Configure playbooks to automatically respond to security incidents, reducing response time and minimizing damage.</p>
                 </div>
-
+                
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>Real-time Analytics</h3>
-                    <p>Visualize security data across your environment with intuitive dashboards and comprehensive reporting</p>
+                    <h3>Comprehensive Dashboards</h3>
+                    <p>Visualize security data with intuitive dashboards that provide actionable insights at a glance.</p>
                 </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-fingerprint"></i>
-                    </div>
-                    <h3>User Fingerprinting</h3>
-                    <p>Track and identify suspicious user behavior including VPN usage, device details, and bot detection</p>
-                </div>
-
+                
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-plug"></i>
                     </div>
-                    <h3>Seamless Integration</h3>
-                    <p>Connect with 100+ security tools and services through our open API and pre-built connectors</p>
+                    <h3>Integration Ecosystem</h3>
+                    <p>Connect with over 200 security tools and data sources to centralize your security operations.</p>
                 </div>
-
+                
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-cogs"></i>
+                        <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3>Customizable Workflows</h3>
-                    <p>Build and deploy security response workflows tailored to your organization's specific requirements</p>
+                    <h3>Mobile Alerts</h3>
+                    <p>Stay informed with real-time notifications on critical security events via mobile app or SMS.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3>Compliance Reporting</h3>
+                    <p>Generate comprehensive reports for regulatory compliance including GDPR, HIPAA, PCI DSS, and more.</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <h2 class="section-title">How Scrubbe Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Collect</h3>
-                    <p>Gather security logs and events from all sources in your environment including networks, endpoints, and cloud services</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Analyze</h3>
-                    <p>Process data through machine learning algorithms to identify patterns and detect anomalies</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Alert</h3>
-                    <p>Generate context-rich notifications prioritized by threat level and business impact</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Respond</h3>
-                    <p>Execute automated playbooks to contain threats and remediate security incidents</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="security-metrics">
-        <div class="container">
-            <h2 class="section-title">Security at Scale</h2>
-            <div class="metrics-container">
-                <div class="metric">
-                    <div class="metric-value">99.9%</div>
-                    <p>Threat Detection Rate</p>
-                </div>
-
-                <div class="metric">
-                    <div class="metric-value">78%</div>
-                    <p>Reduction in Response Time</p>
-                </div>
-
-                <div class="metric">
-                    <div class="metric-value">10B+</div>
-                    <p>Events Processed Daily</p>
-                </div>
-
-                <div class="metric">
-                    <div class="metric-value">300+</div>
-                    <p>Security Use Cases</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <h2 class="section-title">What Our Customers Say</h2>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"Scrubbe has transformed our security operations. We've reduced our threat response time by 82% and can now handle threats that would have previously gone undetected."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Sarah Johnson</h4>
-                            <p>CISO, Global Financial Services</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"The user fingerprinting capabilities have been game-changing for us. We can now detect and block suspicious activities before they become serious security incidents."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Michael Chen</h4>
-                            <p>Security Architect, Tech Solutions</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"Implementation was smooth and the ROI was immediate. Our team now spends more time on strategic security initiatives instead of chasing false positives."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Lisa Rodriguez</h4>
-                            <p>IT Director, Healthcare Provider</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="section" id="installation">
-        <div class="container">
-          <h2 class="section-title">Quick Installation Guide</h2>
-          <div class="installation">
     
-            <div class="installation-steps">
-              <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                  <h3>Install the package</h3>
-                  <p>Use npm to install the scrubbe package and its dependencies:</p>
+    <section class="device-info" id="demo">
+        <div class="container">
+            <div class="section-title">
+                <h2>Security Intelligence In Action</h2>
+                <p>Experience how Scrubbe collects and analyzes device and network data to enhance security monitoring.</p>
+            </div>
+            
+            <div class="fingerprint-box">
+                <h3>Your Device Fingerprint</h3>
+                <p>Below is a sample of the type of data Scrubbe can collect and analyze to identify potential security threats:</p>
+                
+                <div class="fingerprint-grid">
+                    <div class="fingerprint-item">
+                        <div class="fingerprint-label">VPN Status</div>
+                        <div class="fingerprint-value" id="vpn-status">Checking...</div>
+                    </div>
+                    
+                    <div class="fingerprint-item">
+                        <div class="fingerprint-label">Device Type</div>
+                        <div class="fingerprint-value" id="device-type">Checking...</div>
+                    </div>
+                    
+                    <div class="fingerprint-item">
+                        <div class="fingerprint-label">Timestamp</div>
+                        <div class="fingerprint-value" id="timestamp">Checking...</div>
+                    </div>
+                    
+                    <div class="fingerprint-item">
+                        <div class="fingerprint-label">OS Model</div>
+                        <div class="fingerprint-value" id="os-model">Checking...</div>
+                    </div>
+                    
+                    <div class="fingerprint-item">
+                        <div class="fingerprint-label">IP Address</div>
+                        <div class="fingerprint-value" id="ip-address">Checking...</div>
+                    </div>
+                    
+                    <div class="fingerprint-item">
+                        <div class="fingerprint-label">Region/City</div>
+                        <div class="fingerprint-value" id="region">Checking...</div>
+                    </div>
+                    
+                    <div class="fingerprint-item">
+                        <div class="fingerprint-label">Browser Information</div>
+                        <div class="fingerprint-value" id="browser-info">Checking...</div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; font-size: 0.9rem; color: var(--gray);">Note: This is a demonstration of data collection capabilities. In a production environment, Scrubbe would process this information securely and in compliance with privacy regulations.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="integrations" id="integrations">
+        <div class="container">
+            <div class="section-title">
+                <h2>Seamless Integrations</h2>
+                <p>Scrubbe connects with your existing security and cloud infrastructure to provide comprehensive visibility and control.</p>
+            </div>
+            
+            <div class="integrations-grid">
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <i class="fab fa-aws"></i>
+                    </div>
+                    <h4>AWS</h4>
+                    <p>Monitor CloudTrail, GuardDuty, and S3 security</p>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <i class="fab fa-microsoft"></i>
+                    </div>
+                    <h4>Azure</h4>
+                    <p>Ingest Azure Sentinel and Azure Monitor data</p>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h4>GCP</h4>
+                    <p>Connect with Google Cloud Security Command Center</p>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <i class="fas fa-dog"></i>
+                    </div>
+                    <h4>Datadog</h4>
+                    <p>Seamless integration with Datadog monitoring</p>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h4>Splunk</h4>
+                    <p>Two-way data exchange with Splunk</p>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>CrowdStrike</h4>
+                    <p>Endpoint detection and response</p>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h4>Elastic</h4>
+                    <p>Ingest and analyze Elasticsearch data</p>
+                </div>
+                
+                <div class="integration-card">
+                    <div class="integration-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h4>Data Lake</h4>
+                    <p>Connect to any S3 or Azure Data Lake</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="device-info" id="installation">
+        <div class="container">
+            <div class="section-title">
+                <h2>Quick Installation Guide</h2>
+                <p>Get started with Scrubbe in just a few minutes with our simple installation process.</p>
+            </div>
+            
+            <div class="installation">
+                <h3 class="installation-title">Install Scrubbe in minutes</h3>
+                <div class="installation-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Install the package</h3>
+                            <p>Use npm to install the scrubbe package and its dependencies:</p>
                   <div class="code-block">npm install scrubbe-dash --save</div>
                 </div>
-              </div>
-              
-              <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                  <h3>Initialize the dashboard</h3>
-                  <p>Create a new dashboard configuration file:</p>
-                  <div class="code-block">npx scrubbe-dash init</div>
-                  <p>This will create a <code>scrubbe.config.js</code> file in your project root.</p>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                  <h3>Configure your integrations</h3>
-                  <p>Edit the config file to add your integration credentials:</p>
-                  <div class="code-block">// scrubbe.config.js</div>
+
 
                 
-    
+                <div class="installation-steps">
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Install the package</h3>
+                            <p>Create a new dashboard configuration file:</p>
+                  <div class="code-block">npx scrubbe-dash init</div>
+                </div>
+                </div>
 
-</div>
-
-</div>
-</div>
-
-<div class="step">
-  <div class="step-number">4</div>
-  <div class="step-content">
-    <h3>Start the dashboard</h3>
-    <p>Run the dashboard with your configuration:</p>
-    <div class="code-block">npx scrubbe-dash start</div>
-    <p>Your dashboard will be available at <code>http://localhost:3000</code></p>
-  </div>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-
-
-    <section class="cta-section" id="contact">
-        <div class="container">
-            <h2>Ready to Strengthen Your Security Posture?</h2>
-            <p>Join hundreds of organizations that trust Scrubbe to protect their critical assets</p>
-            <div class="cta-buttons">
-                <a href="#" class="btn btn-primary">Schedule a Demo</a>
-                <a href="#" class="btn btn-secondary">Contact Sales</a>
+                
+                
+                
+                
+                <!-- Footer Section -->
+<footer>
+    <div class="container">
+        <!-- Footer Top Section with Columns -->
+        <div class="footer-content">
+            <!-- Company Column -->
+            <div class="footer-column">
+                <h3>Scrubbe</h3>
+                <p>Advanced SIEM & SOAR security intelligence platform that protects your organization from emerging threats.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            
+            <!-- Product Column -->
+            <div class="footer-column">
+                <h3>Product</h3>
+                <ul class="footer-links">
+                    <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                    <li><a href="#integrations"><i class="fas fa-chevron-right"></i> Integrations</a></li>
+                    <li><a href="#installation"><i class="fas fa-chevron-right"></i> Installation</a></li>
+                    <li><a href="#demo"><i class="fas fa-chevron-right"></i> Demo</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                </ul>
+            </div>
+            
+            <!-- Resources Column -->
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Documentation</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> API Reference</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Community</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Support</a></li>
+                </ul>
+            </div>
+            
+            <!-- Company Column -->
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Press</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                </ul>
             </div>
         </div>
-    </section>
+        
+        <!-- Copyright Section -->
+        <div class="copyright">
+            <p>&copy; 2025 Scrubbe Security. All rights reserved.</p>
+            <p>Secure. Intelligent. Automated.</p>
+        </div>
+    </div>
+</footer>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Scrubbe</h3>
-                    <p>Advanced SIEM & SOAR platform for modern security operations</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
+<script>
+// Add this to your JavaScript section
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.getElementById('nav-links');
+    
+    if(mobileMenu) {
+        mobileMenu.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+    }
+    
+    // Demo data for fingerprint section
+    document.getElementById('vpn-status').textContent = 'Not Detected';
+    document.getElementById('device-type').textContent = 'Desktop';
+    document.getElementById('timestamp').textContent = new Date().toLocaleString();
+    document.getElementById('os-model').textContent = navigator.platform || 'Unknown';
+    document.getElementById('ip-address').textContent = '192.168.x.x (masked)';
+    document.getElementById('region').textContent = 'Unknown (Demo)';
+    document.getElementById('browser-info').textContent = navigator.userAgent.substring(0, 40) + '...';
+});
+</script>
 
-                <div class="footer-column">
-                    <h3>Product</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Case Studies</a></li>
-                        <li><a href="#">Documentation</a></li>
-                    </ul>
-                </div>
+<style>
+/* Replace the existing footer CSS with these improved styles */
+footer {
+    background-color: #1e293b;
+    color: white;
+    padding: 4rem 0 1rem;
+    position: relative;
+    overflow: hidden;
+}
 
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Knowledge Base</a></li>
-                        <li><a href="#">Webinars</a></li>
-                        <li><a href="#">API Reference</a></li>
-                    </ul>
-                </div>
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/api/placeholder/1000/1000') no-repeat center center;
+    background-size: cover;
+    opacity: 0.03;
+    z-index: 0;
+}
 
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
+/* Horizontal layout using flexbox */
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+    gap: 2rem; /* Space between columns */
+}
+
+.footer-column {
+    flex: 1; /* Equal width for all columns */
+    min-width: 200px; /* Minimum width before wrapping */
+    max-width: 300px; /* Maximum width to prevent stretching */
+}
+
+.footer-column h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: white;
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 3px;
+    background: #10b981; /* Using the secondary color variable */
+    border-radius: 2px;
+}
+
+.footer-column p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.footer-links a:hover {
+    color: #10b981; /* Using the secondary color variable */
+}
+
+.footer-links a i {
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.social-link:hover {
+    background-color: #10b981; /* Using the secondary color variable */
+    transform: translateY(-5px);
+}
+
+.social-link i {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .footer-column {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+    
+    .footer-column h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer-links a {
+        justify-content: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+</style>
