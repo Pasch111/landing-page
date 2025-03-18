@@ -363,6 +363,77 @@
       
       .step-number {
         align-self: flex-start;
+        
+      /* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Default styles (Mobile-first approach) */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #333;
+    color: white;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li {
+    display: none; /* Hide menu items for mobile */
+}
+
+.menu-toggle {
+    display: block;
+    cursor: pointer;
+}
+
+/* Responsive Design for Tablets and Larger Screens */
+@media (min-width: 768px) {
+    nav ul li {
+        display: inline;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+}
+
+/* Responsive Grid Layout */
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .section {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+        
       }
     }
   </style>
