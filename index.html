@@ -1,151 +1,638 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Next-Gen SIEM & SOAR Platform</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    }
-    
-    body {
-      color: #1a202c;
-      background-color: #f7fafc;
-      line-height: 1.6;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    
-    header {
-      background-color: #fff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-    }
-    
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #4f46e5;
-      display: flex;
-      align-items: center;
-    }
-    
-    .logo-icon {
-      margin-right: 8px;
-      font-size: 28px;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 30px;
-    }
-    
-    .nav-links a {
-      text-decoration: none;
-      color: #4a5568;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    
-    .nav-links a:hover {
-      color: #4f46e5;
-    }
-    
-    .btn {
-      display: inline-block;
-      background-color: #4f46e5;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 6px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background-color 0.2s;
-    }
-    
-    .btn-outline {
-      background-color: transparent;
-      border: 2px solid #4f46e5;
-      color: #4f46e5;
-      padding: 10px 22px;
-    }
-    
-    .btn:hover {
-      background-color: #4338ca;
-    }
-    
-    .btn-outline:hover {
-      background-color: rgba(79, 70, 229, 0.1);
-    }
-    
-    .hero {
-      padding: 80px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 60px;
-    }
-    
-    .hero-content {
-      flex: 1;
-    }
-    
-    .hero-title {
-      font-size: 48px;
-      line-height: 1.2;
-      margin-bottom: 20px;
-      color: #1a202c;
-    }
-    
-    .hero-subtitle {
-      font-size: 20px;
-      color: #4a5568;
-      margin-bottom: 30px;
-    }
-    
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
-    }
-    
-    .hero-image {
-      flex: 1;
-      max-width: 500px;
-    }
-    
-    .hero-image img {
-      width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
-    
-    .section {
-      padding: 80px 0;
-    }
-    
-    .section-title {
-      font-size: 36px;
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    
-    .integrations {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrubbe | Advanced SIEM & SOAR Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.4/fingerprint2.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2a4365;
+            --secondary-color: #38b2ac;
+            --dark-bg: #1a202c;
+            --light-bg: #f7fafc;
+            --text-light: #e2e8f0;
+            --text-dark: #2d3748;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-bg));
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
+        }
+
+        .btn-primary:hover {
+            background-color: #319795;
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 36px;
+            color: var(--primary-color);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .how-it-works {
+            padding: 80px 0;
+            background-color: #edf2f7;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .step-number {
+            background-color: var(--secondary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin-bottom: 15px;
+        }
+
+        .security-metrics {
+            padding: 80px 0;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+        }
+
+        .metrics-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .testimonials {
+            padding: 80px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #cbd5e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-bg));
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 18px;
+        }
+
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: var(--text-light);
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Modal for fingerprint info */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .device-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .fingerprint-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .fingerprint-table th, .fingerprint-table td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .fingerprint-table th {
+            background-color: #edf2f7;
+        }
+
+        .fingerprint-category {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+            color: var(--primary-color);
+        }
+
+        .risk-low {
+            background-color: #c6f6d5;
+            color: #22543d;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .risk-medium {
+            background-color: #fefcbf;
+            color: #744210;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .risk-high {
+            background-color: #fed7d7;
+            color: #822727;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .fingerprint-details {
+            margin-top: 15px;
+        }
+
+        .detail-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .detail-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .detail-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: #718096;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+        }
+
+        .fingerprint-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .export-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+        }
+
+        .export-btn:hover {
+            background-color: #2d3748;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 15px;
+            font-size: 14px;
+        }
+
+        .indicator-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #48bb78;
+            margin-right: 6px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7);
+            }
+            
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(72, 187, 120, 0);
+            }
+            
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(72, 187, 120, 0);
+            }
+        }
+
+        .threat-gauge {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+        }
+
+        .gauge-background {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                #48bb78 0% 20%,
+                #ecc94b 20% 60%,
+                #f56565 60% 100%
+            );
+            clip-path: polygon(50% 50%, 100% 50%, 100% 0, 0 0, 0 50%, 50% 50%);
+            transform: rotate(-90deg);
+        }
+
+        .gauge-center {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .gauge-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .gauge-label {
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .gauge-needle {
+            position: absolute;
+            width: 4px;
+            height: 65px;
+            background-color: #4a5568;
+            bottom: 50%;
+            left: calc(50% - 2px);
+            transform-origin: bottom center;
+            transform: rotate(0deg);
+            transition: transform 1.5s ease-in-out;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .gauge-needle:after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: -4px;
+            width: 12px;
+            height: 12px;
+            background-color: #4a5568;
+            border-radius: 50%;
+        }
+
+        .integrations {
       background-color: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -173,7 +660,7 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
-    
+
     .integration-icon {
       width: 80px;
       height: 80px;
@@ -194,8 +681,8 @@
       font-weight: 600;
       margin-bottom: 8px;
     }
-    
-    .integration-desc {
+
+        .integration-desc {
       color: #4a5568;
       font-size: 14px;
     }
@@ -217,30 +704,8 @@
       flex-direction: column;
       gap: 30px;
     }
-    
-    .step {
-      display: flex;
-      gap: 20px;
-    }
-    
-    .step-number {
-      flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      background-color: #4f46e5;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-    
-    .step-content h3 {
-      margin-bottom: 10px;
-    }
-    
-    .code-block {
+
+        .code-block {
       background-color: #1e293b;
       color: #e2e8f0;
       padding: 20px;
@@ -250,375 +715,436 @@
       overflow-x: auto;
       margin: 16px 0;
     }
-    
-    .features {
-      padding: 80px 0;
-      background-color: #f7fafc;
-    }
-    
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-    }
-    
-    .feature-card {
-      background-color: #fff;
-      border-radius: 8px;
-      padding: 30px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-    
-    .feature-icon {
-      background-color: rgba(79, 70, 229, 0.1);
-      color: #4f46e5;
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    
-    .feature-title {
-      font-size: 20px;
-      margin-bottom: 12px;
-    }
-    
-    .feature-desc {
-      color: #4a5568;
-    }
-    
-    footer {
-      background-color: #1e293b;
-      color: #e2e8f0;
-      padding: 60px 0 30px;
-    }
-    
-    .footer-content {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 60px;
-      margin-bottom: 60px;
-    }
-    
-    .footer-column {
-      flex: 1;
-      min-width: 200px;
-    }
-    
-    .footer-column h3 {
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #fff;
-    }
-    
-    .footer-links {
-      list-style: none;
-    }
-    
-    .footer-links li {
-      margin-bottom: 10px;
-    }
-    
-    .footer-links a {
-      color: #cbd5e0;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    
-    .footer-links a:hover {
-      color: #fff;
-    }
-    
-    .copyright {
-      text-align: center;
-      padding-top: 30px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: #a0aec0;
-      font-size: 14px;
-    }
-    
-    @media (max-width: 768px) {
-      .hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 40px 0;
-      }
-      
-      .hero-buttons {
-        justify-content: center;
-      }
-      
-      .section-title {
-        font-size: 30px;
-        margin-bottom: 40px;
-      }
-      
-      .step {
-        flex-direction: column;
-      }
-      
-      .step-number {
-        align-self: flex-start;
-      }
-    }
-  </style>
+
+        .vpn-alert {
+            background-color: #fed7d7;
+            border-left: 4px solid #c53030;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .vpn-alert-title {
+            color: #c53030;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .vpn-alert-title i {
+            margin-right: 8px;
+        }
+
+        .bot-alert {
+            background-color: #fed7d7;
+            border-left: 4px solid #c53030;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .bot-alert-title {
+            color: #c53030;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .bot-alert-title i {
+            margin-right: 8px;
+        }
+
+        .geo-map {
+            width: 100%;
+            height: 200px;
+            background-color: #e2e8f0;
+            margin-top: 15px;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #edf2f7;
+            color: #4a5568;
+            font-size: 14px;
+        }
+        
+        .location-pin {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -100%);
+            color: #e53e3e;
+            font-size: 24px;
+        }
+
+        /* Tabs for fingerprint modal */
+        .tab-container {
+            margin-top: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 80%;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+        }
+
+        /* Hidden fingerprint data container */
+        #fingerprintData {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">
-          <span class="logo-icon"></span>
-          scrubbe
+    <!-- Hidden container for fingerprint data -->
+    <div id="fingerprintData"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    Scrubbe
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#" id="open-demo" class="btn btn-secondary">Try Demo</a></li>
+                </ul>
+            </nav>
         </div>
-        <div class="nav-links">
-          <a href="#features">Features</a>
-          <a href="#integrations">Integrations</a>
-          <a href="#installation">Installation</a>
-          <a href="#docs">Documentation</a>
-          <a href="#soar">SOAR</a>
-        </div>
-        <div>
-          <a href="#" class="btn btn-outline">Log In</a>
-          <a href="#" class="btn">Get Started</a>
-        </div>
-      </nav>
-    </div>
-  </header>
-  
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <h1 class="hero-title">Automate Your Security Response with scrubbe</h1>
-        <p class="hero-subtitle">An intelligent SIEM & SOAR platform that detects, analyses, and responds to threats 10x faster than traditional solutions.</p>
-        <div class="hero-buttons">
-          <a href="#installation" class="btn">Quick Install</a>
-          <a href="#" class="btn btn-outline">View Demo</a>
-        </div>
-      </div>
-      <div class="hero-image">
-        <img src="/api/placeholder/600/400" alt="Dashboard preview" />
-      </div>
-    </div>
-  </section>
-  
-  <section class="section" id="integrations">
-    <div class="container">
-      <h2 class="section-title">Seamless Integrations</h2>
-      <div class="integrations">
-        <div class="integrations-grid">
-          <div class="integration-card">
-            <div class="integration-icon">
-              <img src="/api/placeholder/80/80" alt="AWS Logo" />
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Intelligent Security & Response</h1>
+            <p>Advanced SIEM & SOAR platform that detects, analyzes, and responds to security threats in real-time with machine learning and automation</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Request a Demo</a>
+                <a href="#" id="learn-more" class="btn btn-secondary">Learn More</a>
             </div>
-            <h3 class="integration-name">Amazon AWS</h3>
-            <p class="integration-desc">Connect to AWS CloudWatch metrics, EC2 instances, and more</p>
-          </div>
-          
-          <div class="integration-card">
-            <div class="integration-icon">
-              <img src="/api/placeholder/80/80" alt="Azure Logo" />
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Advanced Threat Detection</h3>
+                    <p>Identify sophisticated threats with AI-powered analysis and behavioral monitoring across your entire network</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Automated Response</h3>
+                    <p>Respond instantly to security incidents with customizable playbooks that eliminate manual intervention</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Real-time Analytics</h3>
+                    <p>Visualize security data across your environment with intuitive dashboards and comprehensive reporting</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <h3>User Fingerprinting</h3>
+                    <p>Track and identify suspicious user behavior including VPN usage, device details, and bot detection</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>Seamless Integration</h3>
+                    <p>Connect with 100+ security tools and services through our open API and pre-built connectors</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Customizable Workflows</h3>
+                    <p>Build and deploy security response workflows tailored to your organization's specific requirements</p>
+                </div>
             </div>
-            <h3 class="integration-name">Microsoft Azure</h3>
-            <p class="integration-desc">Monitor your Azure services and application insights</p>
-          </div>
-          
-          <div class="integration-card">
-            <div class="integration-icon">
-              <img src="/api/placeholder/80/80" alt="DataDog Logo" />
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How Scrubbe Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Collect</h3>
+                    <p>Gather security logs and events from all sources in your environment including networks, endpoints, and cloud services</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Analyze</h3>
+                    <p>Process data through machine learning algorithms to identify patterns and detect anomalies</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Alert</h3>
+                    <p>Generate context-rich notifications prioritized by threat level and business impact</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Respond</h3>
+                    <p>Execute automated playbooks to contain threats and remediate security incidents</p>
+                </div>
             </div>
-            <h3 class="integration-name">Datadog</h3>
-            <p class="integration-desc">Import and visualize your Datadog monitoring data</p>
-          </div>
-          
-          <div class="integration-card">
-            <div class="integration-icon">
-              <img src="/api/placeholder/80/80" alt="Google Cloud Logo" />
+        </div>
+    </section>
+
+    <section class="security-metrics">
+        <div class="container">
+            <h2 class="section-title">Security at Scale</h2>
+            <div class="metrics-container">
+                <div class="metric">
+                    <div class="metric-value">99.9%</div>
+                    <p>Threat Detection Rate</p>
+                </div>
+
+                <div class="metric">
+                    <div class="metric-value">78%</div>
+                    <p>Reduction in Response Time</p>
+                </div>
+
+                <div class="metric">
+                    <div class="metric-value">10B+</div>
+                    <p>Events Processed Daily</p>
+                </div>
+
+                <div class="metric">
+                    <div class="metric-value">300+</div>
+                    <p>Security Use Cases</p>
+                </div>
             </div>
-            <h3 class="integration-name">Google Cloud</h3>
-            <p class="integration-desc">Connect with Google Cloud monitoring services</p>
-          </div>
-          
-          <div class="integration-card">
-            <div class="integration-icon">
-              <img src="/api/placeholder/80/80" alt="Prometheus Logo" />
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Scrubbe has transformed our security operations. We've reduced our threat response time by 82% and can now handle threats that would have previously gone undetected."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>CISO, Global Financial Services</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The user fingerprinting capabilities have been game-changing for us. We can now detect and block suspicious activities before they become serious security incidents."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Security Architect, Tech Solutions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Implementation was smooth and the ROI was immediate. Our team now spends more time on strategic security initiatives instead of chasing false positives."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Lisa Rodriguez</h4>
+                            <p>IT Director, Healthcare Provider</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h3 class="integration-name">Prometheus</h3>
-            <p class="integration-desc">Visualize metrics from your Prometheus servers</p>
-          </div>
-          
-          <div class="integration-card">
-            <div class="integration-icon">
-              <img src="/api/placeholder/80/80" alt="Grafana Logo" />
+        </div>
+    </section>
+
+
+    <section class="section" id="installation">
+        <div class="container">
+          <h2 class="section-title">Quick Installation Guide</h2>
+          <div class="installation">
+    
+            <div class="installation-steps">
+              <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h3>Install the package</h3>
+                  <p>Use npm to install the scrubbe package and its dependencies:</p>
+                  <div class="code-block">npm install scrubbe-dash --save</div>
+                </div>
+              </div>
+              
+              <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h3>Initialize the dashboard</h3>
+                  <p>Create a new dashboard configuration file:</p>
+                  <div class="code-block">npx scrubbe-dash init</div>
+                  <p>This will create a <code>scrubbe.config.js</code> file in your project root.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h3>Configure your integrations</h3>
+                  <p>Edit the config file to add your integration credentials:</p>
+                  <div class="code-block">// scrubbe.config.js</div>
+
+                
+    
+
+</div>
+
+</div>
+</div>
+
+<div class="step">
+  <div class="step-number">4</div>
+  <div class="step-content">
+    <h3>Start the dashboard</h3>
+    <p>Run the dashboard with your configuration:</p>
+    <div class="code-block">npx scrubbe-dash start</div>
+    <p>Your dashboard will be available at <code>http://localhost:3000</code></p>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>Ready to Strengthen Your Security Posture?</h2>
+            <p>Join hundreds of organizations that trust Scrubbe to protect their critical assets</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Schedule a Demo</a>
+                <a href="#" class="btn btn-secondary">Contact Sales</a>
             </div>
-            <h3 class="integration-name">Grafana</h3>
-            <p class="integration-desc">Import your existing Grafana dashboards</p>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
-  
-  <section class="section" id="installation">
-    <div class="container">
-      <h2 class="section-title">Quick Installation Guide</h2>
-      <div class="installation">
-        <h3 class="installation-title">Install scrubbe dashboard in minutes</h3>
-        <div class="installation-steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h3>Install the package</h3>
-              <p>Use npm to install the scrubbe package and its dependencies:</p>
-              <div class="code-block">npm install scrubbe-dash --save</div>
-            </div>
-          </div>
-          
-          <div class="step">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h3>Initialize the dashboard</h3>
-              <p>Create a new dashboard configuration file:</p>
-              <div class="code-block">npx scrubbe-dash init</div>
-              <p>This will create a <code>scrubbe.config.js</code> file in your project root.</p>
-            </div>
-          </div>
-          
-          <div class="step">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h3>Configure your integrations</h3>
-              <p>Edit the config file to add your integration credentials:</p>
-              <div class="code-block">// scrubbe.config.js
-module.exports = {
-  port: 3000,
-  integrations: {
-    aws: {
-      region: 'us-east-1',
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY,
-        secretAccessKey: process.env.AWS_SECRET_KEY,
-      },
-    },
-    azure: {
-      connectionString: process.env.AZURE_CONNECTION_STRING,
-    },
-    datadog: {
-      apiKey: process.env.DATADOG_API_KEY,
-      appKey: process.env.DATADOG_APP_KEY,
-    },
-  },
-};</div>
-            </div>
-          </div>
-          
-          <div class="step">
-            <div class="step-number">4</div>
-            <div class="step-content">
-              <h3>Start the dashboard</h3>
-              <p>Run the dashboard with your configuration:</p>
-              <div class="code-block">npx scrubbe-dash start</div>
-              <p>Your dashboard will be available at <code>http://localhost:3000</code></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <section class="features" id="features">
-    <div class="container">
-      <h2 class="section-title">Powerful Features</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3 class="feature-title">Customizable Widgets</h3>
-          <p class="feature-desc">Create and customize widgets to display exactly the metrics you need with our drag-and-drop interface.</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🔔</div>
-          <h3 class="feature-title">Real-time Alerts</h3>
-          <p class="feature-desc">Set thresholds and receive instant notifications when your metrics need attention.</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">📱</div>
-          <h3 class="feature-title">Responsive Design</h3>
-          <p class="feature-desc">View your dashboard on any device with our fully responsive layout.</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🔒</div>
-          <h3 class="feature-title">Secure by Default</h3>
-          <p class="feature-desc">Enterprise-grade security with role-based access control and encryption.</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">📈</div>
-          <h3 class="feature-title">Historical Data</h3>
-          <p class="feature-desc">Access and analyze historical data with powerful filtering and visualization tools.</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🔄</div>
-          <h3 class="feature-title">API Access</h3>
-          <p class="feature-desc">Use our RESTful API to programmatically access your dashboard data.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-column">
-          <h3>Product</h3>
-          <ul class="footer-links">
-            <li><a href="#">Features</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Integrations</a></li>
-            <li><a href="#">Roadmap</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-column">
-          <h3>Resources</h3>
-          <ul class="footer-links">
-            <li><a href="#">Documentation</a></li>
-            <li><a href="#">API Reference</a></li>
-            <li><a href="#">Status</a></li>
-            <li><a href="#">Changelog</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-column">
-          <h3>Company</h3>
-          <ul class="footer-links">
-            <li><a href="#">About</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-column">
-          <h3>Legal</h3>
-          <ul class="footer-links">
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Security</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="copyright">
-        &copy; 2025 AnalyticsDash. All rights reserved.
-      </div>
-    </div>
-  </footer>
-</body>
-</html>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Scrubbe</h3>
+                    <p>Advanced SIEM & SOAR platform for modern security operations</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Knowledge Base</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">API Reference</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
