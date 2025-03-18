@@ -379,27 +379,10 @@
           <a href="#integrations">Integrations</a>
           <a href="#installation">Installation</a>
           <a href="#docs">Documentation</a>
-          
+          <a href="#Soar">SOAR</a>
         <button onclick="loadPage('SOAR.html')">SOAR</button>
     
         </div>
-
-
-     <script>
-        function loadPage(page) {
-            fetch(page)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("content").innerHTML = data;
-            })
-            .catch(error => {
-                document.getElementById("content").innerHTML = "<p>Failed to load content.</p>";
-            });
-        }
-    </script>
-
-   
-        
         
         <div>
           <a href="#" class="btn btn-outline">Log In</a>
