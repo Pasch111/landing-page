@@ -3,10 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Next-Gen SIEM & SOAR platform</title>
-
-  
-  <link rel="stylesheet" href="style.css">
+  <title>Analytics Dashboard - Easy Integration with Major Platforms</title>
   <style>
     * {
       margin: 0;
@@ -365,77 +362,6 @@
       
       .step-number {
         align-self: flex-start;
-        
-      /* Reset some default styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Default styles (Mobile-first approach) */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    padding: 20px;
-    text-align: center;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Navigation */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: #333;
-    color: white;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-}
-
-nav ul li {
-    display: none; /* Hide menu items for mobile */
-}
-
-.menu-toggle {
-    display: block;
-    cursor: pointer;
-}
-
-/* Responsive Design for Tablets and Larger Screens */
-@media (min-width: 768px) {
-    nav ul li {
-        display: inline;
-    }
-
-    .menu-toggle {
-        display: none;
-    }
-}
-
-/* Responsive Grid Layout */
-.section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-@media (min-width: 1024px) {
-    .section {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
-        
       }
     }
   </style>
@@ -445,19 +371,14 @@ nav ul li {
     <div class="container">
       <nav>
         <div class="logo">
-          <span class="logo-icon"></span>
-          Scrubbe
+          <span class="logo-icon">📊</span>
+          AnalyticsDash
         </div>
         <div class="nav-links">
           <a href="#features">Features</a>
           <a href="#integrations">Integrations</a>
           <a href="#installation">Installation</a>
           <a href="#docs">Documentation</a>
-          <a href="#solutions">solutions</a>
-          <a href="#contact">contact</a>
-          <a href="#SOAR">SOAR</a>
-       </div>
-          
         </div>
         <div>
           <a href="#" class="btn btn-outline">Log In</a>
@@ -466,13 +387,12 @@ nav ul li {
       </nav>
     </div>
   </header>
-
   
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <h1 class="hero-title">Automate Your Security Response with scrubbe</h1>
-        <p class="hero-subtitle">An intelligent SIEM & SOAR platform that detects, analyzes, and responds to threats 10x faster that traditional solutions.</p>
+        <h1 class="hero-title">Monitor Everything with One Dashboard</h1>
+        <p class="hero-subtitle">A powerful, flexible analytics dashboard that integrates with your favorite platforms. Deploy in minutes with simple npm installation.</p>
         <div class="hero-buttons">
           <a href="#installation" class="btn">Quick Install</a>
           <a href="#" class="btn btn-outline">View Demo</a>
@@ -482,7 +402,6 @@ nav ul li {
         <img src="/api/placeholder/600/400" alt="Dashboard preview" />
       </div>
     </div>
-    
   </section>
   
   <section class="section" id="integrations">
@@ -536,9 +455,6 @@ nav ul li {
             </div>
             <h3 class="integration-name">Grafana</h3>
             <p class="integration-desc">Import your existing Grafana dashboards</p>
-
-
-            
           </div>
         </div>
       </div>
@@ -549,14 +465,14 @@ nav ul li {
     <div class="container">
       <h2 class="section-title">Quick Installation Guide</h2>
       <div class="installation">
-        <h3 class="installation-title">Install scrubbe dasboard in minutes</h3>
+        <h3 class="installation-title">Install AnalyticsDash in minutes</h3>
         <div class="installation-steps">
           <div class="step">
             <div class="step-number">1</div>
             <div class="step-content">
               <h3>Install the package</h3>
               <p>Use npm to install the dashboard package and its dependencies:</p>
-              <div class="code-block">npm install scrubbe --save</div>
+              <div class="code-block">npm install analytics-dash --save</div>
             </div>
           </div>
           
@@ -565,8 +481,8 @@ nav ul li {
             <div class="step-content">
               <h3>Initialize the dashboard</h3>
               <p>Create a new dashboard configuration file:</p>
-              <div class="code-block">npx scrubbe-dash init</div>
-              <p>This will create a <code>scrubbe.config.js</code> file in your project root.</p>
+              <div class="code-block">npx analytics-dash init</div>
+              <p>This will create a <code>dashboard.config.js</code> file in your project root.</p>
             </div>
           </div>
           
@@ -575,7 +491,7 @@ nav ul li {
             <div class="step-content">
               <h3>Configure your integrations</h3>
               <p>Edit the config file to add your integration credentials:</p>
-              <div class="code-block">// scrubbe.config.js
+              <div class="code-block">// dashboard.config.js
 module.exports = {
   port: 3000,
   integrations: {
@@ -603,7 +519,7 @@ module.exports = {
             <div class="step-content">
               <h3>Start the dashboard</h3>
               <p>Run the dashboard with your configuration:</p>
-              <div class="code-block">npx scrubbe-dash start</div>
+              <div class="code-block">npx analytics-dash start</div>
               <p>Your dashboard will be available at <code>http://localhost:3000</code></p>
             </div>
           </div>
@@ -625,7 +541,7 @@ module.exports = {
         <div class="feature-card">
           <div class="feature-icon">🔔</div>
           <h3 class="feature-title">Real-time Alerts</h3>
-          <p class="feature-desc">Create playbooks and Set thresholds and receive instant notifications when your metrics need attention.</p>
+          <p class="feature-desc">Set thresholds and receive instant notifications when your metrics need attention.</p>
         </div>
         
         <div class="feature-card">
@@ -703,8 +619,5 @@ module.exports = {
       </div>
     </div>
   </footer>
-
-</nav>
-  
 </body>
 </html>
