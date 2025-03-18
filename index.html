@@ -385,19 +385,26 @@
         </div>
 
 
-      <script>
+     <script>
         function loadPage(page) {
             fetch(page)
             .then(response => response.text())
             .then(data => {
                 document.getElementById("content").innerHTML = data;
             })
-          .catch(error => {
+            .catch(error => {
                 document.getElementById("content").innerHTML = "<p>Failed to load content.</p>";
             });
-            
         }
     </script>
+
+
+    <!-- Navigation Buttons -->
+    <nav>
+        <button onclick="loadPage('SOAR.html')">SOAR</button>
+    </nav>
+
+   
         
         
         <div>
