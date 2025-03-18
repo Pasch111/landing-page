@@ -5,32 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Next-Gen SIEM & SOAR platform</title>
 
-
-    <script>
-        function loadPage(page) {
-            fetch(page)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("content").innerHTML = data;
-            })
-            .catch(error => {
-                document.getElementById("content").innerHTML = "<p>Failed to load content.</p>";
-            });
-        }
-    </script>
-
-
-    <!-- Navigation Buttons -->
-    <nav>
-        <button onclick="loadPage('login.html')">Login</button>
-        <button onclick="loadPage('SOAR.html')">SOAR</button>
-    </nav>
-
-    <!-- Content Section Where Pages Will Load -->
-    <div id="content">
-        <p>Click a button to load content here.</p>
-    </div>
-
   
   <link rel="stylesheet" href="style.css">
   <style>
@@ -482,6 +456,29 @@ nav ul li {
           <a href="#solutions">solutions</a>
           <a href="#contact">contact</a>
           <a href="#SOAR">SOAR</a>
+<script>
+        function loadPage(page) {
+            fetch(page)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("content").innerHTML = data;
+            })
+            .catch(error => {
+                document.getElementById("content").innerHTML = "<p>Failed to load content.</p>";
+            });
+        }
+    </script>
+
+
+    <!-- Navigation Buttons -->
+    <nav>
+        <button onclick="loadPage('SOAR.html')">SOAR</button>
+    </nav>
+
+    <!-- Content Section Where Pages Will Load -->
+    <div id="content">
+        <p>Click a button to load content here.</p>
+    </div>
           
         </div>
         <div>
