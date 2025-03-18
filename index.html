@@ -379,6 +379,7 @@
           <a href="#integrations">Integrations</a>
           <a href="#installation">Installation</a>
           <a href="#docs">Documentation</a>
+          <a href="#SOAR">SOAR</a>
         </div>
         <div>
           <a href="#" class="btn btn-outline">Log In</a>
@@ -391,8 +392,8 @@
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <h1 class="hero-title">Monitor Everything with One Dashboard</h1>
-        <p class="hero-subtitle">A powerful, flexible analytics dashboard that integrates with your favorite platforms. Deploy in minutes with simple npm installation.</p>
+        <h1 class="hero-title">Automate Your Security Response with scrubbe</h1>
+        <p class="hero-subtitle">An intelligent SIEM & SOAR platform that detects, analyses, and responds to threats 10x faster than traditional solutions.</p>
         <div class="hero-buttons">
           <a href="#installation" class="btn">Quick Install</a>
           <a href="#" class="btn btn-outline">View Demo</a>
@@ -465,14 +466,14 @@
     <div class="container">
       <h2 class="section-title">Quick Installation Guide</h2>
       <div class="installation">
-        <h3 class="installation-title">Install AnalyticsDash in minutes</h3>
+        <h3 class="installation-title">Install scrubbe dashboard in minutes</h3>
         <div class="installation-steps">
           <div class="step">
             <div class="step-number">1</div>
             <div class="step-content">
               <h3>Install the package</h3>
-              <p>Use npm to install the dashboard package and its dependencies:</p>
-              <div class="code-block">npm install analytics-dash --save</div>
+              <p>Use npm to install the scrubbe package and its dependencies:</p>
+              <div class="code-block">npm install scrubbe-dash --save</div>
             </div>
           </div>
           
@@ -481,8 +482,8 @@
             <div class="step-content">
               <h3>Initialize the dashboard</h3>
               <p>Create a new dashboard configuration file:</p>
-              <div class="code-block">npx analytics-dash init</div>
-              <p>This will create a <code>dashboard.config.js</code> file in your project root.</p>
+              <div class="code-block">npx scrubbe-dash init</div>
+              <p>This will create a <code>scrubbe.config.js</code> file in your project root.</p>
             </div>
           </div>
           
@@ -491,7 +492,7 @@
             <div class="step-content">
               <h3>Configure your integrations</h3>
               <p>Edit the config file to add your integration credentials:</p>
-              <div class="code-block">// dashboard.config.js
+              <div class="code-block">// scrubbe.config.js
 module.exports = {
   port: 3000,
   integrations: {
