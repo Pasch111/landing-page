@@ -1139,7 +1139,7 @@
                     <div class="step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <h3>Install the package</h3>
+                            <h3>Install package</h3>
                             <p>Use npm to install the scrubbe package and its dependencies:</p>
                   <div class="code-block">npm install scrubbe-dash --save</div>
                 </div>
@@ -1150,9 +1150,17 @@
                     <div class="step">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <h3>Install the package</h3>
+                            <h3>React Integration</h3>
                             <p>Create a new dashboard configuration file:</p>
-                  <div class="code-block">npx scrubbe-dash init</div>
+                  <div class="code-block">import { ScrubbeDashboard, AlertsWidget } from '@scrubbe/react-components';
+
+function SecurityDashboard() {
+  return (
+    <ScrubbeDashboard apiKey="YOUR_API_KEY">
+      <AlertsWidget refreshInterval={60} />
+    </ScrubbeDashboard>
+  );
+}</div>
                 </div>
                 </div>
 
