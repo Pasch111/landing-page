@@ -1139,9 +1139,16 @@
                     <div class="step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <h3>Install package</h3>
-                            <p>Use npm to install the scrubbe package and its dependencies:</p>
-                  <div class="code-block">npm install scrubbe-dash --save</div>
+                            <h3>Allow initialization with custom settings</h3>
+                            <p>Configuration Options using Javascript:</p>
+                  <div class="code-block">import { ScrubbeDashboard } from 'scrubbe-dashboard';
+
+const dashboard = new ScrubbeDashboard({
+  apiKey: 'YOUR_API_KEY',
+  tenant: 'customer-name',
+  theme: 'light',
+  modules: ['alerts', 'incidents', 'reporting']
+});</div>
                 </div>
 
 
