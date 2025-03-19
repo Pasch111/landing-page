@@ -14,7 +14,190 @@
             --light: #f8fafc;
             --gray: #64748b;
         }
+
+
+        <!-- CSS Styles - Add these to your existing stylesheet -->
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --danger-color: #e74c3c;
+    --success-color: #2ecc71;
+    --light-color: #ecf0f1;
+    --dark-color: #34495e;
+}
+
+.breach-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.breach-heading {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.breach-description {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #555;
+}
+
+.breach-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.breach-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.breach-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.breach-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.breach-btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.breach-btn:hover {
+    background-color: #2980b9;
+}
+
+.breach-btn-check {
+    width: 100%;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.breach-results {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 4px;
+    border-left: 4px solid var(--secondary-color);
+    background-color: rgba(52, 152, 219, 0.1);
+    display: none;
+}
+
+.breach-results.show {
+    display: block;
+}
+
+.breach-results.breach {
+    border-left-color: var(--danger-color);
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.breach-results.safe {
+    border-left-color: var(--success-color);
+    background-color: rgba(46, 204, 113, 0.1);
+}
+
+.breach-results h3 {
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.breach-results.breach h3 {
+    color: var(--danger-color);
+}
+
+.breach-results.safe h3 {
+    color: var(--success-color);
+}
+
+.breach-loader {
+    display: none;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.breach-loader.show {
+    display: block;
+}
+
+.breach-spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: var(--secondary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.breach-error {
+    color: var(--danger-color);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    display: none;
+}
+
+.breach-error.show {
+    display: block;
+}
+
+.breach-security-tips {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--light-color);
+    border-radius: 4px;
+}
+
+.breach-security-tips h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.breach-security-tips ul {
+    padding-left: 1.5rem;
+}
+
+.breach-security-tips li {
+    margin-bottom: 0.5rem;
+}
+
+.breach-footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: #777;
+    font-size: 0.9rem;
+}
+
         
+
+
         * {
             margin: 0;
             padding: 0;
@@ -352,6 +535,7 @@
             font-size: 0.9rem;
             position: relative;
         }
+
         
         .code-block::before {
             content: 'Code';
@@ -450,7 +634,11 @@
             border-radius: 50%;
             font-size: 2rem;
         }
+
         
+        
+
+
         .integration-card h4 {
             margin-bottom: 0.8rem;
             color: var(--dark);
@@ -815,6 +1003,126 @@
             </div>
         </div>
     </section>
+
+
+
+    <!-- HTML Structure - Add this where you want the breach checker to appear -->
+<div class="breach-container">
+    <p class="breach-description">Check if your email or IP address has been compromised in a data breach</p>
+    
+    <form id="breachForm">
+        <div class="breach-form-group">
+            <label class="breach-label" for="email">Email Address</label>
+            <input type="email" id="email" name="email" class="breach-input" placeholder="Enter your email address" required>
+            <div id="emailError" class="breach-error">Please enter a valid email address</div>
+        </div>
+        
+        <div class="breach-form-group">
+            <label class="breach-label" for="ip">IP Address (optional)</label>
+            <input type="text" id="ip" name="ip" class="breach-input" placeholder="Enter your IP address (e.g., 192.168.1.1)">
+            <div id="ipError" class="breach-error">Please enter a valid IP address</div>
+        </div>
+        
+        <button type="submit" class="breach-btn breach-btn-check">Check for Breaches</button>
+    </form>
+    
+    <div id="loader" class="breach-loader">
+        <div class="breach-spinner"></div>
+        <p>Checking databases...</p>
+    </div>
+    
+    <div id="results" class="breach-results">
+        <h3>Scan Results</h3>
+        <div id="resultContent"></div>
+    </div>
+</div>
+
+        
+        
+     <!-- JavaScript - Add this before your closing body tag -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('breachForm');
+        const loader = document.getElementById('loader');
+        const results = document.getElementById('results');
+        const resultContent = document.getElementById('resultContent');
+        const emailError = document.getElementById('emailError');
+        const ipError = document.getElementById('ipError');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset errors
+            emailError.classList.remove('show');
+            ipError.classList.remove('show');
+            
+            // Get form values
+            const email = document.getElementById('email').value.trim();
+            const ip = document.getElementById('ip').value.trim();
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                emailError.classList.add('show');
+                return;
+            }
+            
+            // Validate IP if provided
+            if (ip) {
+                const ipRegex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+                if (!ipRegex.test(ip)) {
+                    ipError.classList.add('show');
+                    return;
+                }
+            }
+            
+            // Show loader
+            loader.classList.add('show');
+            results.classList.remove('show', 'breach', 'safe');
+            
+            // Simulate API call
+            setTimeout(function() {
+                loader.classList.remove('show');
+                results.classList.add('show');
+                
+                // For demo purposes, we'll randomly determine if there's a breach
+                const hasBreachEmail = Math.random() > 0.5;
+                const hasBreachIP = ip && Math.random() > 0.7;
+                
+                if (hasBreachEmail || hasBreachIP) {
+                    results.classList.add('breach');
+                    let message = '<p>Your information was found in one or more data breaches:</p><ul>';
+                    
+                    if (hasBreachEmail) {
+                        message += `<li><strong>Email (${email}):</strong> Found in <strong>${Math.floor(Math.random() * 5) + 1}</strong> data breaches. Last breach detected: ${randomDate()}.</li>`;
+                    }
+                    
+                    if (hasBreachIP) {
+                        message += `<li><strong>IP Address (${ip}):</strong> Found in <strong>${Math.floor(Math.random() * 3) + 1}</strong> data breaches. Last breach detected: ${randomDate()}.</li>`;
+                    }
+                    
+                    message += '</ul><p>We recommend changing your passwords and enabling two-factor authentication for affected accounts.</p>';
+                    resultContent.innerHTML = message;
+                } else {
+                    results.classList.add('safe');
+                    resultContent.innerHTML = '<p>Good news! Your information was not found in any known data breaches. Continue maintaining good security practices to keep your accounts safe.</p>';
+                }
+            }, 2000);
+        });
+        
+        // Generate a random date within the last year
+        function randomDate() {
+            const now = new Date();
+            const monthsAgo = Math.floor(Math.random() * 12);
+            const past = new Date();
+            past.setMonth(now.getMonth() - monthsAgo);
+            return past.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+    });
+</script>
+   
+
+
     
     <section class="device-info" id="installation">
         <div class="container">
