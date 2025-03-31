@@ -16,7 +16,7 @@
         }
 
 
-        <!-- CSS Styles - Add these to your existing stylesheet -->
+        /* CSS Styles - Add these to your existing stylesheet  */
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
@@ -76,7 +76,7 @@
 .breach-btn {
     display: inline-block;
     padding: 0.8rem 1.5rem;
-    background-color: var(--secondary-color);
+    background-color: var(--primary);
     color: white;
     border: none;
     border-radius: 4px;
@@ -837,7 +837,7 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-radar"></i>
+                        <i class="fas fa-robot"></i>
                     </div>
                     <h3>Real-Time Threat Detection</h3>
                     <p>Monitor and detect suspicious activities across your network with advanced analytics and machine learning algorithms.</p>
@@ -1151,14 +1151,14 @@
                             <p>Configuration Options using Javascript:</p>
                   <div class="code-block">import { ScrubbeDashboard } from 'scrubbe-dashboard';
 
-const dashboard = new ScrubbeDashboard({
-  apiKey: 'YOUR_API_KEY',
-  tenant: 'customer-name',
-  theme: 'light',
-  modules: ['alerts', 'incidents', 'reporting']
-});</div>
-    </div>
-    </div>
+                        const dashboard = new ScrubbeDashboard({
+                        apiKey: 'YOUR_API_KEY',
+                        tenant: 'customer-name',
+                        theme: 'light',
+                        modules: ['alerts', 'incidents', 'reporting']
+                        });</div>
+                        </div>
+                        </div>
 
 
                 
@@ -1170,109 +1170,114 @@ const dashboard = new ScrubbeDashboard({
                             <p>Create a new dashboard configuration file:</p>
                   <div class="code-block">import { ScrubbeDashboard, AlertsWidget } from '@scrubbe/react-components';
 
-function SecurityDashboard() {
-  return (
-    ScrubbeDashboard apiKey="YOUR_API_KEY"
-      <AlertsWidget refreshInterval={60} />
-    
-  );
-}
+                    function SecurityDashboard() {
+                    return (
+                        ScrubbeDashboard apiKey="YOUR_API_KEY"
+                        <AlertsWidget refreshInterval={60} />
+                        
+                    );
+                    }
                   </div>
                 </div>
                 </div>
 
-                
+                </div>
+                </div>
+                </div>
+                </div>
+                </section>
                 
                 
                 
                 <!-- Footer Section -->
-<footer>
-     <div class="container">
+                <footer>
+                    <div class="container">
    
-        <!-- Footer Top Section with Columns -->
-        <div class="footer-content">
-            <!-- Company Column -->
-            <div class="footer-column">
-                <h3>Scrubbe</h3>
-                <p>Advanced SIEM & SOAR security intelligence platform that protects your organization from emerging threats.</p>
-                <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
-                </div>
-            </div>
+                    <!-- Footer Top Section with Columns -->
+                    <div class="footer-content">
+                        <!-- Company Column -->
+                        <div class="footer-column">
+                            <h3>Scrubbe</h3>
+                            <p>Advanced SIEM & SOAR security intelligence platform that protects your organization from emerging threats.</p>
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                            </div>
+                        </div>
             
-            <!-- Product Column -->
-            <div class="footer-column">
-                <h3>Product</h3>
-                <ul class="footer-links">
-                    <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
-                    <li><a href="#integrations"><i class="fas fa-chevron-right"></i> Integrations</a></li>
-                    <li><a href="#installation"><i class="fas fa-chevron-right"></i> Installation</a></li>
-                    <li><a href="#demo"><i class="fas fa-chevron-right"></i> Demo</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
-                </ul>
-            </div>
-            
-            <!-- Resources Column -->
-            <div class="footer-column">
-                <h3>Resources</h3>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Documentation</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> API Reference</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Community</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Support</a></li>
-                </ul>
-            </div>
-            
-            <!-- Company Column -->
-            <div class="footer-column">
-                <h3>Company</h3>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Press</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
-                </ul>
-            </div>
+                    <!-- Product Column -->
+                    <div class="footer-column">
+                        <h3>Product</h3>
+                        <ul class="footer-links">
+                            <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                            <li><a href="#integrations"><i class="fas fa-chevron-right"></i> Integrations</a></li>
+                            <li><a href="#installation"><i class="fas fa-chevron-right"></i> Installation</a></li>
+                            <li><a href="#demo"><i class="fas fa-chevron-right"></i> Demo</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Resources Column -->
+                    <div class="footer-column">
+                        <h3>Resources</h3>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Documentation</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> API Reference</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Community</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Support</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Company Column -->
+                    <div class="footer-column">
+                        <h3>Company</h3>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Press</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        </ul>
+                    </div>
         </div>
         
-        <!-- Copyright Section -->
-        <div class="copyright">
-            <p>&copy; 2025 Scrubbe Security. All rights reserved.</p>
-            <p>Secure. Intelligent. Automated.</p>
-        </div>
-    </div>
-</footer>
+                <!-- Copyright Section -->
+                <div class="copyright">
+                    <p>&copy; 2025 Scrubbe Security. All rights reserved.</p>
+                    <p>Secure. Intelligent. Automated.</p>
+                </div>
+            </div>
+        </footer>
 
-<script>
-// Add this to your JavaScript section
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
-    const mobileMenu = document.getElementById('mobile-menu');
-    const navLinks = document.getElementById('nav-links');
-    
-    if(mobileMenu) {
-        mobileMenu.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-        });
-    }
-    
-    // Demo data for fingerprint section
-    document.getElementById('vpn-status').textContent = 'Not Detected';
-    document.getElementById('device-type').textContent = 'Desktop';
-    document.getElementById('timestamp').textContent = new Date().toLocaleString();
-    document.getElementById('os-model').textContent = navigator.platform || 'Unknown';
-    document.getElementById('ip-address').textContent = '192.168.x.x (masked)';
-    document.getElementById('region').textContent = 'Unknown (Demo)';
-    document.getElementById('browser-info').textContent = navigator.userAgent.substring(0, 40) + '...';
-});
-</script>
+            <script>
+            // Add this to your JavaScript section
+            document.addEventListener('DOMContentLoaded', function() {
+                // Mobile menu toggle
+                const mobileMenu = document.getElementById('mobile-menu');
+                const navLinks = document.getElementById('nav-links');
+                
+                if(mobileMenu) {
+                    mobileMenu.addEventListener('click', function() {
+                        navLinks.classList.toggle('active');
+                    });
+                }
+                
+                // Demo data for fingerprint section
+                document.getElementById('vpn-status').textContent = 'Not Detected';
+                document.getElementById('device-type').textContent = 'Desktop';
+                document.getElementById('timestamp').textContent = new Date().toLocaleString();
+                document.getElementById('os-model').textContent = navigator.platform || 'Unknown';
+                document.getElementById('ip-address').textContent = '192.168.x.x (masked)';
+                document.getElementById('region').textContent = 'Unknown (Demo)';
+                document.getElementById('browser-info').textContent = navigator.userAgent.substring(0, 40) + '...';
+            });
+            </script>
 
 <style>
+
 /* Replace the existing footer CSS with these improved styles */
 footer {
     background-color: #1e293b;
